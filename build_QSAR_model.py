@@ -12,7 +12,7 @@ from qsar.pubchem import PubChemDataSet
 lg = RDLogger.logger()
 lg.setLevel(RDLogger.CRITICAL)
 
-def build_model(aid):
+def build_model(aid, model):
 
 
     try:
@@ -34,28 +34,27 @@ def build_model(aid):
                                                                              (y == 1).sum(),
                                                                              (y == 0).sum()))
     except:
-        print("error on aid {0}".format(aid))
+        raise Exception("error on aid {0}".format(aid))
 
 
-    for name, clf in SKLearnModels.CLASSIFIERS:
+    pipe = Pipeline(list(SKLearnModels.PREPROCESS) + [(name, clf) for name, clf in SKLearnModels.CLASSIFIERS if name == model])
+    print("=======5-fold CV on {0}=======".format(model))
+    parameters = SKLearnModels.PARAMETERS[model]
 
-        pipe = Pipeline(list(SKLearnModels.PREPROCESS) + [(name, clf)])
-        print("=======5-fold CV on {0}=======".format(name))
-        parameters = SKLearnModels.PARAMETERS[name]
-
-        cv_search = GridSearchCV(pipe,
-                           parameters,
-                           cv=5,
-                           scoring='accuracy',
-                           n_jobs=-1,
-                           verbose=0)
-        cv_search.fit(X.values, y.values)
-        print("================================")
-        print("The best parameters for {0} are :\n{1}".format(name,
-                                                              cv_search.best_params_))
-        print("The best accuracy score is {0}".format(cv_search.best_score_))
-        # Save to pickle
-        cv_search.best_estimator_
+    cv_search = GridSearchCV(pipe,
+                       parameters,
+                       cv=5,
+                       scoring='accuracy',
+                       n_jobs=-1,
+                       verbose=0)
+    cv_search.fit(X.values, y.values)
+    print("================================")
+    print("The best parameters for {0} are :".format(model))
+    for param, val in cv_search.best_params_.items():
+        print("{}: {}".format(param.split('__')[1], val))
+    print("The best accuracy score is {0:.2f}%".format(cv_search.best_score_ * 100))
+    # Save to pickle
+    cv_search.best_estimator_
 
 
 
@@ -64,7 +63,14 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='CLI interface to build Classic ML models from PubChem')
     parser.add_argument('-a', '--aid', required=True)
+    parser.add_argument('-m', '--model', required=True)
+
+    model_mapper = {'rf':'Random Forest',
+                    'svm':'Support Vector Classification',
+                    'nb':'Naive Bayes',
+                    'lr':'Logistic Regression',
+                    'knn':'kNN'}
 
     args = parser.parse_args()
 
-    build_model(int(args.aid))
+    build_model(int(args.aid), model_mapper[args.model])
