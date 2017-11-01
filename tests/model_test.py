@@ -1,14 +1,12 @@
-from qsar.models import CreateQSARClassifcationModel, SKLearnModels
-from qsar.pubchem import PubChemDataSet
-
-from rdkit.ML.Descriptors import MoleculeDescriptors
-from rdkit.Chem import Descriptors
-from rdkit import Chem
-
-from sklearn import base
 import numpy as np
 import pandas as pd
+from rdkit import Chem
+from rdkit.Chem import Descriptors
+from rdkit.ML.Descriptors import MoleculeDescriptors
+from sklearn import base
 
+from qsar.models import CreateQSARClassifcationModel, SKLearnModels
+from qsar.pubchem import PubChemDataSet
 
 
 class TestQSARModels:

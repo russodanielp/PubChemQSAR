@@ -1,9 +1,8 @@
 from qsar.cleaner import PubChemDataSetCleaner, ActivityBalancer, \
-                            StructureCleaner
-from qsar.pubchem import PubChemDataSet
+    StructureCleaner
 from qsar.datasets import Datasets as DS
+from qsar.pubchem import PubChemDataSet
 from tests import skiptest
-
 
 
 class TestPubChemDataSetCleaner:

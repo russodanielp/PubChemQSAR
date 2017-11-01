@@ -1,7 +1,6 @@
-from qsar.pubchem import PubChemDataSet
 from rdkit import Chem
-from tests import skiptest
 
+from qsar.pubchem import PubChemDataSet
 
 
 class TestPubChemDataSet:

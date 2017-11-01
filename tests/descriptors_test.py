@@ -1,7 +1,8 @@
-from qsar.pubchem import PubChemDataSet
-from qsar.descriptors import PubChemDataSetDescriptors
 from qsar.datasets import Datasets as DS
+from qsar.descriptors import PubChemDataSetDescriptors
+from qsar.pubchem import PubChemDataSet
 from tests import skiptest
+
 
 class TestDescriptors:
 

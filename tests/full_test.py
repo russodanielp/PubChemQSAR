@@ -1,12 +1,11 @@
-from qsar.pubchem import PubChemDataSet
-from qsar.descriptors import PubChemDataSetDescriptors
-from qsar.models import CreateQSARClassifcationModel, SKLearnModels
-from sklearn.grid_search import GridSearchCV
-
-from sklearn.pipeline import Pipeline
-from sklearn.metrics import accuracy_score
-
 import numpy as np
+from sklearn.grid_search import GridSearchCV
+from sklearn.pipeline import Pipeline
+
+from qsar.descriptors import PubChemDataSetDescriptors
+from qsar.models import SKLearnModels
+from qsar.pubchem import PubChemDataSet
+
 
 class TestFull:
 

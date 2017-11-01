@@ -17,11 +17,11 @@ log = logging.getLogger(__name__)
 
 class SKLearnModels:
 
-    # PREPROCESS = (
-    #     ('scaler', MinMaxScaler(feature_range=[0, 1])),
-    #     ('variance', VarianceThreshold()),
-    #     ('selectKbest', SelectKBest(chi2, k=10))
-    # )
+    PREPROCESS = (
+        ('scaler', MinMaxScaler(feature_range=[0, 1])),
+        ('variance', VarianceThreshold()),
+        ('selectKbest', SelectKBest(chi2, k=10))
+    )
 
     # TODO whats the deal with calibrated CV
     CLASSIFIERS = (
