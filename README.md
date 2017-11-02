@@ -3,13 +3,13 @@
 
 
 PubChemQSAR is a Python program that can build Quantitative Structure Activity
-Relationship (QSAR) models from any given PubChem Assay Identifier (AID).  Given the PubChem AID, PubChemQSAR grab
- compound assay responses and structural information.  It will the clean the data, balance the active to inactive ration,
+Relationship (QSAR) models from any given PubChem Assay Identifier (AID).  Given the PubChem AID, PubChemQSAR will obtain
+ compound assay responses and structural information.  It will the clean the data, balance the active to inactive ratio,
  and train a classification model using 5-fold cross validation on any of 5 machine learning algorithms (Random Forest,
  Support Vector Machine, Naive Bayes, Logistic Regression, and kNN).
 
 
- Example usage:
+An example of building a Random Forest model for PubChem AID 101 is as follows:
 
  ```bash
  python build_QSAR_model.py -a 101 -m rf
